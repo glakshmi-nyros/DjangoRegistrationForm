@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+  function validation(form)
+  {
+    emailfilter=/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/;
+    if(!emailfilter.test(form.email_id.value))
+    {
+      document.getElementById("name_error").innerHTML = "email must be filled out as gfj@hdh.com";
+      form.email_id.focus();
+      return false;
+    }
+   
+    if(form.password.value == "")
+    {
+      document.getElementById('pwd_error').innerHTML = 'password should not be empty';
+      form.password.focus();
+      return false;
+    }
+    if (form.password.value.length < 4) 
+    {
+      document.getElementById('pwd_error').innerHTML = 'passwords must be atleast 4 characters';
+      form.password.focus();
+      return false;
+    }
+    var confirmPassword = form.confirm_password.value;
+    if (form.password.value != confirmPassword) 
+    {
+      document.getElementById('cpwd_error').innerHTML = 'passwords donot match';
+      form.confirm_password.focus();
+      return false;
+    }
+    reg=/^[a-zA-Z0-9_-]{3,15}$/;
+    if(!reg.test(form.user_name.value))
+    {
+     document.getElementById('uname_error').innerHTML = 'enter valid username without special characters';
+      form.user_name.focus();
+      return false;
+    }
+    phn = /^[(]+\++\d{2}[)]+[^0]+\d{9}/;
+    if(!phn.test(form.contact_number.value))
+    {
+     document.getElementById('phone_error').innerHTML = 'enter valid contact';
+      form.contact_number.focus();
+      return false;
+    }
+   return true;
+  }
+</script>
+<style type="text/css">
+  body{
+    background-color:lightblue;
+  }
+  input[type=text] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 20%;
+  background-color: #4CAF50; 
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+</style>
+ <title>Sign up</title>
+</head>
+<body>
+        
+<form  method="post" action="{% url 'user_register' %}" >
+  {% csrf_token %}        
+  <div align="center">
+    <h1>Registration form</h1>
+    <div class="container">GIVE YOUR MAIL<br>
+        <input type="text" name="email_id"><br>
+        <div id="name_error"></div>
+        </div>
+        
+        <div class="container">
+        SELECT A PASSWORD<br>
+        <input type="password" name="password"><br>
+        <div id="pwd_error"></div>
+        </div>
+        
+
+        <div class="container">
+        CONFIRM PASSWORD<br>
+        <input type="password" name="confirm_password"></br>
+        <div id="cpwd_error"></div>
+        </div>
+          
+        
+        <div class="container">
+        SELECT A USERNAME<br>
+        <input type="text" name="user_name"></br>
+        <div id="uname_error"></div>
+        </div>
+
+       <div class="container">
+       CONTACT NUMBER:<br>
+       <input type="text" name="contact_number">
+       <div id="phone_error"></div>
+       </div>
+         
+          
+         
+        <div class="container">      
+        <div class="button"><input type="submit" class="button" value="SUBMIT "onclick="return validation(form)">
+        </div>
+        </div>
+</form>
+</body>
+</html>

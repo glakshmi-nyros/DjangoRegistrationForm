@@ -1,0 +1,1 @@
+/home/nyros/mysite/mysite/urls.py
